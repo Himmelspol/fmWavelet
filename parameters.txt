@@ -1,0 +1,15 @@
+# Please do not change the format of this file!!
+feff_ver: 8
+k_weighted: 3
+kmin_feff: 2.55
+kmax_feff: 8
+kcenter_shift: 0.5
+gaussian_sigma: 0.4
+kmin_data: 2
+kmax_data: 18
+dk_data: 0.05
+smin: 0.80
+smax: 1.20
+ds: 0.02 
+DWfactor: 0.0087
+e_lambda: 1
