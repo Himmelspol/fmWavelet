@@ -2,6 +2,7 @@
 
 import linecache
 import os
+import re
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,17 +20,22 @@ class FMwavelet:
         path_data = []
         # get r_eff calculated by feff in the feffxxxx.dat file
         # get k_mesh, scattering amptitude, phase, lamda and reduce factor in feffxxxx.dat file
-        if Parameters.feff_ver == 6:
-            Parameters.n_deg = float(linecache.getline(feff_name, 8).split()[1])
-            Parameters.r_eff = float(linecache.getline(feff_name, 8).split()[2])
-            path_data = np.loadtxt(feff_name, skiprows=12)
-        elif Parameters.feff_ver == 8:
-            Parameters.n_deg = float(linecache.getline(feff_name, 10).split()[1])
-            Parameters.r_eff = float(linecache.getline(feff_name, 10).split()[2])
-            path_data = np.loadtxt(feff_name, skiprows=14)
+        if Parameters.feff_ver == 6 or Parameters.feff_ver == 8:
+            count = 1
+            with open(feff_name, encoding="utf-8") as file:
+                for line in file:
+                    if re.search('----------', line):
+                        break
+                    else:
+                        count += 1
+            print(count)
+            Parameters.n_deg = float(linecache.getline(feff_name, count + 1).split()[1])
+            Parameters.r_eff = float(linecache.getline(feff_name, count + 1).split()[2])
+            path_data = np.loadtxt(feff_name, skiprows=count + 5)
         else:
             print("wrong")
             quit()
+        print(path_data)
         interp_path_data = interpValueOfFeff(path_data, Parameters.dk_data, Parameters.kcenter_shift)
         amp_value_data = amp1(interp_path_data, Parameters.k_weighted, Parameters.dwf, Parameters.r_eff,
                               Parameters.e_lambda)

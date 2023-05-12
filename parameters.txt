@@ -1,12 +1,12 @@
 # Please do not change the format of this file!!
 feff_ver: 8
-k_weighted: 3
-kmin_feff: 2.55
-kmax_feff: 8
+k_weighted: 2
+kmin_feff: 2.56
+kmax_feff: 11
 kcenter_shift: 0.5
 gaussian_sigma: 0.4
-kmin_data: 2
-kmax_data: 18
+kmin_data: 2.56
+kmax_data: 11
 dk_data: 0.05
 smin: 0.80
 smax: 1.20
