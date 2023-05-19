@@ -28,14 +28,12 @@ class FMwavelet:
                         break
                     else:
                         count += 1
-            print(count)
             Parameters.n_deg = float(linecache.getline(feff_name, count + 1).split()[1])
             Parameters.r_eff = float(linecache.getline(feff_name, count + 1).split()[2])
             path_data = np.loadtxt(feff_name, skiprows=count + 5)
         else:
             print("wrong")
             quit()
-        print(path_data)
         interp_path_data = interpValueOfFeff(path_data, Parameters.dk_data, Parameters.kcenter_shift)
         amp_value_data = amp1(interp_path_data, Parameters.k_weighted, Parameters.dwf, Parameters.r_eff,
                               Parameters.e_lambda)
